@@ -25,7 +25,7 @@ function Reg() {
    
    try
    {
-     const res= await axios.post(`${API_URL}/register`,data)
+     const res= await axios.post("https://myapp-b-2.onrender.com/register",data)
     alert(res.data)
    }
    catch(xyz)
