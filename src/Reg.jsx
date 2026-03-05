@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 
 // Use environment variable for API URL
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
+const API_URL = process.env.REACT_APP_API_URL || "https://myapp-b-2.onrender.com";
 
 function Reg() {
     const [data, setdata] = useState(
