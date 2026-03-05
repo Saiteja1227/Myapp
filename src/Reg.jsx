@@ -1,5 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+
+// Use environment variable for API URL
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
+
 function Reg() {
     const [data, setdata] = useState(
         {
@@ -13,15 +17,31 @@ function Reg() {
     }
   const regSubmit = async () =>
   {
+   // Validate fields
+   if (!data.username || !data.email || !data.password) {
+     alert("Please fill in all fields")
+     return
+   }
+   
    try
    {
-    // const res= await axios.post("http://localhost:8080/reg"
-     const res= await axios.post("http://localhost:8080/register",data)
+     const res= await axios.post("https://myapp-b-1.onrender.com/register",data)
     alert(res.data)
    }
    catch(xyz)
    {
-         alert(xyz.response?.data||"Error")
+         // More detailed error handling
+         if (xyz.response) {
+           // Server responded with an error status
+           alert(`Error: ${xyz.response.data || xyz.response.statusText || 'Server error'}`)
+         } else if (xyz.request) {
+           // Request was made but no response received
+           alert("Error: Cannot connect to server. Please make sure the backend is running on http://localhost:8080")
+         } else {
+           // Something else happened
+           alert(`Error: ${xyz.message || 'An unexpected error occurred'}`)
+         }
+         console.error("Registration error:", xyz)
    }
 
   }
